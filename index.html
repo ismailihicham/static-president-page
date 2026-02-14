@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Présidents des États-Unis depuis 1945</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f4f6f9;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(90deg, #002868, #BF0A30);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+header input {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  width: 300px;
+  max-width: 90%;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+main {
+  padding: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+  margin-bottom: 0.5rem;
+  color: #002868;
+}
+
+.card span {
+  font-weight: bold;
+  color: #BF0A30;
+}
+
+.card p {
+  margin-top: 0.8rem;
+  line-height: 1.4;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #eee;
+  margin-top: 2rem;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Présidents des États-Unis depuis 1945</h1>
+  <input type="text" id="searchInput" placeholder="Rechercher un président...">
+</header>
+
+<main>
+  <div id="presidentsContainer" class="grid"></div>
+</main>
+
+<footer>
+  <p>Application vitrine - Demo Frontend</p>
+</footer>
+
+<script>
+const presidents = [
+  {
+    name: "Harry S. Truman",
+    term: "1945 - 1953",
+    description: "A succédé à Franklin D. Roosevelt en 1945. Il a pris la décision d'utiliser l'arme nucléaire au Japon et initié le Plan Marshall."
+  },
+  {
+    name: "Dwight D. Eisenhower",
+    term: "1953 - 1961",
+    description: "Ancien général de la Seconde Guerre mondiale. Il a supervisé la fin de la guerre de Corée et développé le réseau autoroutier inter-États."
+  },
+  {
+    name: "John F. Kennedy",
+    term: "1961 - 1963",
+    description: "Connu pour la crise des missiles de Cuba et le programme spatial Apollo. Assassiné en 1963."
+  },
+  {
+    name: "Lyndon B. Johnson",
+    term: "1963 - 1969",
+    description: "A lancé la 'Great Society' et signé les lois sur les droits civiques."
+  },
+  {
+    name: "Richard Nixon",
+    term: "1969 - 1974",
+    description: "A ouvert les relations avec la Chine et démissionné suite au scandale du Watergate."
+  },
+  {
+    name: "Gerald Ford",
+    term: "1974 - 1977",
+    description: "A succédé à Nixon et lui a accordé une grâce présidentielle."
+  },
+  {
+    name: "Jimmy Carter",
+    term: "1977 - 1981",
+    description: "A négocié les accords de Camp David entre Israël et l'Égypte."
+  },
+  {
+    name: "Ronald Reagan",
+    term: "1981 - 1989",
+    description: "Connu pour ses politiques économiques libérales et son rôle dans la fin de la Guerre froide."
+  },
+  {
+    name: "George H. W. Bush",
+    term: "1989 - 1993",
+    description: "A dirigé la coalition internationale lors de la guerre du Golfe."
+  },
+  {
+    name: "Bill Clinton",
+    term: "1993 - 2001",
+    description: "Période de forte croissance économique et procédure d'impeachment en 1998."
+  },
+  {
+    name: "George W. Bush",
+    term: "2001 - 2009",
+    description: "Président lors des attentats du 11 septembre 2001. A lancé les guerres en Afghanistan et en Irak."
+  },
+  {
+    name: "Barack Obama",
+    term: "2009 - 2017",
+    description: "Premier président afro-américain. A mis en place l'Affordable Care Act."
+  },
+  {
+    name: "Donald Trump",
+    term: "2017 - 2021",
+    description: "Présidence marquée par une politique 'America First' et deux procédures d'impeachment."
+  },
+  {
+    name: "Joe Biden",
+    term: "2021 - Présent",
+    description: "A dirigé la réponse fédérale post-COVID et soutenu l'Ukraine face à l'invasion russe."
+  }
+];
+
+const container = document.getElementById("presidentsContainer");
+const searchInput = document.getElementById("searchInput");
+
+function displayPresidents(list) {
+  container.innerHTML = "";
+  list.forEach((president, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.animationDelay = (index * 0.05) + "s";
+
+    card.innerHTML = `
+      <h2>${president.name}</h2>
+      <span>Mandat : ${president.term}</span>
+      <p>${president.description}</p>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  const filtered = presidents.filter(p =>
+    p.name.toLowerCase().includes(value)
+  );
+  displayPresidents(filtered);
+});
+
+displayPresidents(presidents);
+</script>
+
+</body>
+</html>
